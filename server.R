@@ -3,12 +3,15 @@ library(shiny)
 library(igraph)
 library(plotly)
 library(rstackdeque)
+library(jsonlite)
 
 source("external/graph_utils.R", local = TRUE)
 source("external/makenetjson.R", local = TRUE)
 
-initial_data <- "./www/data/Emails1.csv"
-graph <- build_initial_graph(initial_data)
+conf <- fromJSON("./www/data/config.json")
+
+#head(initial_data)
+graph <- build_initial_graph(conf)
 communities <- get_communities(graph)
 htmlloaded = FALSE
 s1 <- rstack()
@@ -23,8 +26,9 @@ function(input, output, session){
   
   # reset button
   observeEvent(input$reset_button, {
-    graph <- build_initial_graph(initial_data)
-    communities <- get_communities(graph)
+    graph <- build_initial_graph(conf)
+    print(input$select)
+    communities <- get_communities(graph,input$select)
     global$viz_stack <- rstack()
     global$viz_stack <- insert_top(global$viz_stack, list(graph, communities))
     global$name <- insert_top(s2, "")
@@ -79,7 +83,7 @@ function(input, output, session){
       graph <- data[[1]]
       communities <- data[[2]]
       graph <- subgraph_of_one_community(graph, communities, input$comm_id) 
-      communities <- get_communities(graph)
+      communities <- get_communities(graph,input$select)
       global$viz_stack <- insert_top(global$viz_stack, list(graph, communities))
       global$name <- insert_top(global$name, input$comm_id)      
     }

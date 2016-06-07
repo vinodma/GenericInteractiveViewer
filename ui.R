@@ -9,13 +9,19 @@ header <- dashboardHeader(title = "Community Visualization v2.0", titleWidth = 4
 
 sidebar <- dashboardSidebar(
   p("Communities are ", span("blue", style = "color:#2A9FD6")), 
-  p("Email Sender/recepient are ",  span("green", style = "color:#FF8800")),
+  p("Entities are ",  span("green", style = "color:#FF8800")),
  # p("Chemicals are ", span("orange", style = "color:#FF8800")), 
   #p(" are ", span("red", style = "color:#CC0000")),
-  
+ selectInput("select", label = h5("Select algorithm"), 
+             choices = list("Louvain" = "lv", "Walktrap" = "wk", "Fast Greedy" = "fg","Infomap" = "imap","Edge betweeness" = "ebetweens","Label Propagation"="lp","Spinglass"="sg"), 
+             selected = "lv"),
+ hr(),
   actionButton("back_button", "Back"),
   actionButton("reset_button", "Reset"),  
-  
+
+ 
+
+ #fluidRow(column(3, verbatimTextOutput("value"))),
  # checkboxGroupInput("node_types", "Entities:",
 #                     choices = c("Protein" , "Disease", "Chemical"),
 #                     selected = c("Protein" , "Disease", "Chemical")),
