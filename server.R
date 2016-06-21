@@ -127,7 +127,7 @@ function(input, output, session){
   # render with sigma the current graph (in json)
   output$graph_with_sigma <- renderUI({
     data <- graph_to_write()
-    makenetjson(data[[1]], "./www/data/current_graph.json", data[[2]]) 
+    makenetjson(data[[1]], "./www/data/current_graph.json", data[[2]],conf) 
     update_stats(data[[1]], data[[2]])
     
     observe({

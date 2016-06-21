@@ -15,33 +15,13 @@
                     function(message) {
 						
                         JSON.parse(JSON.stringify(message), function(k, v) {
+							
                             if (k == "id") {
                                 s.graph.nodes().forEach(function(node, i, a) {
-									
                                     if (node.id == v) {
                                         node.color = "#FFD700";
                                     } else {
-                                        switch (node.type) {
-                                            case "Chemical":
-                                                node.color = "#FF8800";
-                                                break;
-
-                                            case "Disease":
-                                                node.color = "#CC0000";
-                                                break;
-
-                                            case "Protein":
-                                                node.color = "#77B300";
-                                                break;
-
-                                            case "Community":
-                                                node.color = "#2A9FD6";
-                                                break;
-
-                                            default:
-												node.color = "#FF8800";
-                                                break;
-                                        }
+                                       
                                     }
                                 });
                                 s.refresh();
@@ -77,27 +57,7 @@
                             //s.graph.kill();
                             new_s.graph.nodes().forEach(function(node, i, a) {
 
-                                switch (node.type) {
-                                    case "Chemical":
-                                        node.color = "#FF8800";
-                                        break;
-
-                                    case "Disease":
-                                        node.color = "#CC0000";
-                                        break;
-
-                                    case "Protein":
-                                        node.color = "#77B300";
-                                        break;
-
-                                    case "Community":
-                                        node.color = "#2A9FD6";
-                                        break;
-
-                                    default:
-										node.color = "#FF8800";
-                                        break;
-                                }
+                                
                             });
 
                             //Call refresh to render the new graph
